@@ -14,13 +14,31 @@ class MyApp extends StatelessWidget {
       title: '21 days of Flutter',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.deepPurple),
-      home: const HomePage(),
+      home: HomePage(),
     );
   }
 }
 
+class ArtistTag {
+  final String name;
+  final IconData icon;
+  final Color color;
+
+  ArtistTag({
+    required this.name,
+    required this.icon,
+    required this.color
+  });
+}
+
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final List<ArtistTag> tags = [
+    ArtistTag(name: "Dreamer", icon: Icons.cloud, color: Colors.white),
+    ArtistTag(name: "Metal", icon: FontAwesomeIcons.boltLightning, color: Colors.yellow),
+    ArtistTag(name: "Vocalist", icon: Icons.mic_external_on_outlined, color: Colors.blueAccent),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +54,9 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+        padding: const EdgeInsets.symmetric(horizontal: 22.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center, // 1) ortalandı
           children: [
             Stack(
@@ -102,40 +120,36 @@ class HomePage extends StatelessWidget {
               style: TextStyle(fontSize: 16, color: Color(0xFFB3B3B3)),
             ),
             const SizedBox(height: 16),
-            // 3) Etiketler: Row içinde iki Container
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.white12,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Row(
-                    children: [
-                      FaIcon(FontAwesomeIcons.guitar, color: Colors.white, size: 18),
-                      SizedBox(width: 8),
-                      Text("Dreamer", style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.white12,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Row(
-                    children: [
-                      FaIcon(FontAwesomeIcons.fire, color: Colors.deepOrange, size: 18),
-                      SizedBox(width: 8),
-                      Text("Metal", style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                ),
-              ],
+            // 3) day3te yapılan listview builder yapısı.
+            SizedBox(
+              height: 55,
+              child: PageView.builder(
+                itemCount: tags.length,
+                itemBuilder: (context, index) {
+                  final tag = tags[index];
+                  return Center(
+                    child: Container(
+                      height: 42,
+                      padding: const EdgeInsets.symmetric(horizontal: 22),
+                      decoration: BoxDecoration(
+                        color: Colors.white12,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: tag.color
+                        )
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(tag.icon, color: tag.color, size: 20),
+                          const SizedBox(width: 8),
+                          Text(tag.name, style: TextStyle(color: tag.color)),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
             const SizedBox(height: 32),
             const Divider(thickness: 1, color: Colors.white24),
