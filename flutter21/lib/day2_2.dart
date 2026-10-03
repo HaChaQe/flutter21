@@ -24,20 +24,31 @@ class ArtistTag {
   final IconData icon;
   final Color color;
 
-  ArtistTag({
-    required this.name,
-    required this.icon,
-    required this.color
-  });
+  ArtistTag({required this.name, required this.icon, required this.color});
 }
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool isFollowing = false;
 
   final List<ArtistTag> tags = [
     ArtistTag(name: "Dreamer", icon: Icons.cloud, color: Colors.white),
-    ArtistTag(name: "Metal", icon: FontAwesomeIcons.boltLightning, color: Colors.yellow),
-    ArtistTag(name: "Vocalist", icon: Icons.mic_external_on_outlined, color: Colors.blueAccent),
+    ArtistTag(
+      name: "Metal",
+      icon: FontAwesomeIcons.boltLightning,
+      color: Colors.yellow,
+    ),
+    ArtistTag(
+      name: "Vocalist",
+      icon: Icons.mic_external_on_outlined,
+      color: Colors.blueAccent,
+    ),
   ];
 
   @override
@@ -47,7 +58,10 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF121212),
         elevation: 0,
-        leading: const Icon(Icons.keyboard_return_outlined, color: Colors.white),
+        leading: const Icon(
+          Icons.keyboard_return_outlined,
+          color: Colors.white,
+        ),
         actions: const [
           Icon(Icons.settings, color: Colors.white),
           SizedBox(width: 10),
@@ -102,7 +116,7 @@ class HomePage extends StatelessWidget {
                     size: 50,
                     color: Colors.white,
                   ),
-                )
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -134,9 +148,7 @@ class HomePage extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.white12,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: tag.color
-                        )
+                        border: Border.all(color: tag.color),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -170,12 +182,16 @@ class HomePage extends StatelessWidget {
               "Formed Elf with his cousins. Formed Rainbow with Ritchie Blackmore. "
               "Joined Black Sabbath. Formed DIO. Rejoined Black Sabbath. "
               "Returned DIO. Formed Heaven & Hell. Passed away on May 16, 2010.",
-              style: TextStyle(fontSize: 14, color: Colors.white70, height: 1.5),
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white70,
+                height: 1.5,
+              ),
             ),
             const SizedBox(height: 28),
             // 4) Buton tam genişlik ve yuvarlak
             SizedBox(
-              width: double.infinity,
+              width: 200,
               height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -185,10 +201,23 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25),
                   ),
                 ),
-                onPressed: () {},
-                child: const Text(
-                  "FOLLOW NOW!",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                onPressed: () {
+                  setState(() {
+                    isFollowing = !isFollowing;
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      isFollowing ? "FOLLOWING" : "FOLLOW NOW!",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    SizedBox(width: 10,),
+                    Icon(
+                      isFollowing ? Icons.task_alt_rounded : Icons.radio_button_off_rounded
+                    )
+                  ],
                 ),
               ),
             ),
