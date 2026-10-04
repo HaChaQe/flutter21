@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter21/screens/task_detail_page.dart';
+import 'package:flutter21/screens/task_edit_page.dart';
+import 'models/task.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,14 +12,6 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
-}
-
-class Task {
-  String title;
-  String description;
-  bool isCompleted;
-
-  Task({required this.title, this.description = "", this.isCompleted = false});
 }
 
 class _MyAppState extends State<MyApp> {
@@ -215,6 +210,14 @@ class _MyAppState extends State<MyApp> {
                           padding: const EdgeInsets.all(8.0),
                           child: Card(
                             child: ListTile(
+                              onTap: () async {
+                                final updatedTask = await Navigator.push<Task>(context, MaterialPageRoute(builder: (context) => TaskDetailPage(task: task)));
+                                if (updatedTask != null) {
+                                  setState(() {
+                                    taskList[index] = updatedTask;
+                                  });
+                                }
+                              },
                               title: Text(
                                 task.title,
                                 style: TextStyle(
@@ -263,13 +266,13 @@ class _MyAppState extends State<MyApp> {
                                     icon: Icon(Icons.delete),
                                   ),
                                   IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        titleController.text = task.title;
-                                        descriptionController.text =
-                                            task.description;
-                                        editingIndex = index;
-                                      });
+                                    onPressed: () async {
+                                      final updatedTask = await Navigator.push<Task>(context, MaterialPageRoute(builder: (context) => TaskEditPage(task: task),));
+                                      if (updatedTask != null) {
+                                        setState(() {
+                                          taskList[index] = updatedTask;
+                                        });
+                                      }
                                     },
                                     icon: Icon(Icons.edit_note_sharp),
                                   ),
