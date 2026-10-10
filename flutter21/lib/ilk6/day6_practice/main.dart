@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter21/day6_practice/screens/profile_list_page.dart';
+import 'package:flutter21/ilk6/day6_practice/screens/profile_list_page.dart';
 
 void main() {
   runApp(const ProfileApp());

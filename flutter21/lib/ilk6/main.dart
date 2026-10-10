@@ -1,6 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter21/screens/task_detail_page.dart';
-import 'package:flutter21/screens/task_edit_page.dart';
+import 'package:flutter21/ilk6/screens/task_detail_page.dart';
+import 'package:flutter21/ilk6/screens/task_edit_page.dart';
 import 'models/task.dart';
 
 void main() {
@@ -23,13 +25,7 @@ class _MyAppState extends State<MyApp> {
 
   int? editingIndex;
 
-  List<Task> taskList = [
-    Task(title: "Run", description: "Run awayyy!", isCompleted: true),
-    Task(title: "Eat", description: "Eating the Cannibals"),
-    Task(title: "Sleep", description: "Sleep well"),
-    Task(title: "Go to Market", description: "I speed at night, yay!"),
-    Task(title: "Go to Market"),
-  ];
+  List<Task> taskList = [];
 
   @override
   void dispose() {
@@ -72,9 +68,7 @@ class _MyAppState extends State<MyApp> {
                           padding: const EdgeInsets.all(12.0),
                           child: TextFormField(
                             decoration: const InputDecoration(
-                              labelStyle: TextStyle(
-                                color: Colors.black87
-                              ),
+                              labelStyle: TextStyle(color: Colors.black87),
                               labelText: "Task Name:",
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
@@ -82,17 +76,17 @@ class _MyAppState extends State<MyApp> {
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                borderSide:  BorderSide(
-                                  color: Colors.blueGrey,
-                                ),  
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                borderSide: BorderSide(color: Colors.blueGrey),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                borderSide:  BorderSide(
-                                  color: Colors.blueGrey,
-                                ),  
-                              )
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                borderSide: BorderSide(color: Colors.blueGrey),
+                              ),
                             ),
                             controller: titleController,
                             validator: (value) {
@@ -108,10 +102,8 @@ class _MyAppState extends State<MyApp> {
                           padding: const EdgeInsets.all(12.0),
                           child: TextFormField(
                             controller: descriptionController,
-                             decoration: const InputDecoration(
-                              labelStyle: TextStyle(
-                                color: Colors.black87
-                              ),
+                            decoration: const InputDecoration(
+                              labelStyle: TextStyle(color: Colors.black87),
                               labelText: "Description:",
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(
@@ -119,34 +111,40 @@ class _MyAppState extends State<MyApp> {
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                borderSide:  BorderSide(
-                                  color: Colors.blueGrey,
-                                ),  
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                borderSide: BorderSide(color: Colors.blueGrey),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                borderSide:  BorderSide(
-                                  color: Colors.blueGrey,
-                                ),  
-                              )
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                borderSide: BorderSide(color: Colors.blueGrey),
+                              ),
                             ),
                           ),
                         ),
                         editingIndex == null
                             ? Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: ElevatedButton(
-                                    child: const Text("+ ADD TASK", style: TextStyle(color: Colors.black87),),
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    child: const Text(
+                                      "+ ADD TASK",
+                                      style: TextStyle(color: Colors.black87),
+                                    ),
                                     onPressed: () {
                                       if (formKey.currentState!.validate()) {
                                         setState(() {
                                           taskList.add(
                                             Task(
-                                              title: titleController.text.trim(),
-                                              description: descriptionController.text
+                                              id: Random().nextInt(100),
+                                              title: titleController.text
+                                                  .trim(),
+                                              description: descriptionController
+                                                  .text
                                                   .trim(),
                                             ),
                                           );
@@ -156,23 +154,28 @@ class _MyAppState extends State<MyApp> {
                                       }
                                     },
                                   ),
-                              ),
-                            )
+                                ),
+                              )
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: ElevatedButton(
-                                      child: const Text("UPDATE", style: TextStyle(color: Colors.black87),),
+                                      child: const Text(
+                                        "UPDATE",
+                                        style: TextStyle(color: Colors.black87),
+                                      ),
                                       onPressed: () {
                                         if (formKey.currentState!.validate()) {
                                           setState(() {
                                             taskList[editingIndex!].title =
                                                 titleController.text.trim();
-                                            taskList[editingIndex!].description =
-                                                descriptionController.text.trim();
-                                                  
+                                            taskList[editingIndex!]
+                                                    .description =
+                                                descriptionController.text
+                                                    .trim();
+
                                             editingIndex = null;
                                           });
                                           titleController.clear();
@@ -183,7 +186,10 @@ class _MyAppState extends State<MyApp> {
                                   ),
                                   SizedBox(width: 10),
                                   OutlinedButton(
-                                    child: const Text("CANCEL",style: TextStyle(color: Colors.black87),),
+                                    child: const Text(
+                                      "CANCEL",
+                                      style: TextStyle(color: Colors.black87),
+                                    ),
                                     onPressed: () {
                                       setState(() {
                                         editingIndex = null;
@@ -211,7 +217,13 @@ class _MyAppState extends State<MyApp> {
                           child: Card(
                             child: ListTile(
                               onTap: () async {
-                                final updatedTask = await Navigator.push<Task>(context, MaterialPageRoute(builder: (context) => TaskDetailPage(task: task)));
+                                final updatedTask = await Navigator.push<Task>(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        TaskDetailPage(task: task),
+                                  ),
+                                );
                                 if (updatedTask != null) {
                                   setState(() {
                                     taskList[index] = updatedTask;
@@ -267,7 +279,14 @@ class _MyAppState extends State<MyApp> {
                                   ),
                                   IconButton(
                                     onPressed: () async {
-                                      final updatedTask = await Navigator.push<Task>(context, MaterialPageRoute(builder: (context) => TaskEditPage(task: task),));
+                                      final updatedTask =
+                                          await Navigator.push<Task>(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TaskEditPage(task: task),
+                                            ),
+                                          );
                                       if (updatedTask != null) {
                                         setState(() {
                                           taskList[index] = updatedTask;
@@ -283,7 +302,12 @@ class _MyAppState extends State<MyApp> {
                         );
                       },
                     )
-                  : Center(child: Text("No tasks yet..",style: TextStyle(fontSize: 16),)),
+                  : Center(
+                      child: Text(
+                        "No tasks yet..",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
             ),
           ],
         ),

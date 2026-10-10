@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter21/models/task.dart';
+import 'package:flutter21/ilk6/models/task.dart';
 
 class TaskEditPage extends StatefulWidget {
   final Task task;
@@ -112,6 +112,7 @@ class _TaskEditPageState extends State<TaskEditPage> {
                             Navigator.pop(
                               context,
                               Task(
+                                id: widget.task.id,
                                 title: titleController.text.trim(),
                                 description: descriptionController.text.trim(),
                                 isCompleted: widget.task.isCompleted

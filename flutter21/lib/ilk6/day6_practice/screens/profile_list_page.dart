@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter21/day6_practice/models/profile.dart';
-import 'package:flutter21/day6_practice/screens/profile_detail_page.dart';
+import 'package:flutter21/ilk6/day6_practice/models/profile.dart';
+import 'package:flutter21/ilk6/day6_practice/screens/profile_detail_page.dart';
 
 class ProfileListPage extends StatefulWidget {
   const ProfileListPage({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter21/day6_practice/models/profile.dart';
+import 'package:flutter21/ilk6/day6_practice/models/profile.dart';
 
 class ProfileEditPage extends StatefulWidget {
   final Profile profile;

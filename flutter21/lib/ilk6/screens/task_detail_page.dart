@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter21/models/task.dart';
-import 'package:flutter21/screens/task_edit_page.dart';
+import 'package:flutter21/ilk6/models/task.dart';
+import 'package:flutter21/ilk6/screens/task_edit_page.dart';
 
 class TaskDetailPage extends StatefulWidget {
 
