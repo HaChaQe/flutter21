@@ -33,7 +33,7 @@ void main () {
 
   final priorityFour = tasks.firstWhere((task) => task.id == 4);
 
-  final sort = tasks.sort((a,b) => a.priority.compareTo(b.priority));
+  tasks.sort((a,b) => a.priority.compareTo(b.priority));
 
   print(completed);
   print(priorityThree);
